@@ -37,14 +37,6 @@ app.get('/todos', (req, res) => {
 app.get('/todos/:id', (req, res) => {
   var id = req.params.id;
 
-  // console.log(`ID being used: ${id}`)
-  // res.send(req.params);
-  // findById challenge
-  // success
-    // if todo = send it back
-    // if no todo - send back 404 with empty body
-  // error
-    // 400 - and send empty body back
 
   if (!ObjectID.isValid(id)) {
     res.status(404).send();
