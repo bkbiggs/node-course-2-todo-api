@@ -14,7 +14,6 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 app.post('/todos', (req, res) => {
-    //console.log(req.body);
     var todo = new Todo({
       text: req.body.text
     });
@@ -34,33 +33,44 @@ app.get('/todos', (req, res) => {
   });
 });
 
-// GET /todos/1234324
-
 app.get('/todos/:id', (req, res) => {
   var id = req.params.id;
 
-
   if (!ObjectID.isValid(id)) {
     res.status(404).send();
-//    return console.log('ID not valid');
   }
 
   Todo.findById(id).then((todos) => {
     if (!todos) {
       return res.status(404).send();
-//      return console.log('ID not found');
     }
 
     res.send({todos});
-//    console.log('ID found!');
   }).catch((e) => {
     res.status(400).send();
-//    console.log('ID request failed');
   });
 
 
 });
 
+app.delete('/todos/:id', (req, res) => {
+  var id = req.params.id;
+
+  if (!ObjectID.isValid(id)) {
+    res.status(404).send();
+  }
+
+ Todo.findByIdAndRemove(id).then((todo) => {
+   if (!todo) {
+     return res.status(404).send();
+   }
+
+   res.send({todo});
+ }).catch((e) => {
+   res.status(400).send();
+ });
+
+});
 
 app.listen(port, () => {
   console.log(`Started up on port ${port}`);
