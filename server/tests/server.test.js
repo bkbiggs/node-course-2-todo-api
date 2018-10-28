@@ -265,7 +265,6 @@ describe('PATCH /todos/:id', () => {
     });
 
     it('should not create user if email in use', (done) => {
-
       var email = users[0].email;
       var password = '123pas!';
 
